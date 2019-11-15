@@ -9,17 +9,17 @@ import org.apache.commons.net.telnet.SuppressGAOptionHandler;
 import org.apache.commons.net.telnet.TelnetClient;
 import org.apache.commons.net.telnet.TerminalTypeOptionHandler;
 
-public class VTProxyController implements Runnable {
+public class VTProxyController {
 
   private final String address;
   private final int port;
-  private final int timeout;
+  private final long timeout;
   private TelnetClient client;
   private InputStream input;
   private OutputStream output;
   private ConnectionListener connectionListener;
-
-  public VTProxyController(String address, int port, int timeout, String terminalType) {
+  
+  public VTProxyController(String address, int port, long timeout, String terminalType) {
     this.address = address;
     this.port = port;
     this.client = new TelnetClient(terminalType);
@@ -36,7 +36,7 @@ public class VTProxyController implements Runnable {
       client.addOptionHandler(
           new SuppressGAOptionHandler(true, true, true, true));
     } catch (InvalidTelnetOptionException | IOException e) {
-      e.printStackTrace();
+      connectionListener.onException(e);
     }
   }
 
@@ -45,25 +45,24 @@ public class VTProxyController implements Runnable {
   }
 
   public void disconnect() throws IOException {
-    if (!client.isConnected()) {
-      return;
+    if (connectionListener!=null) {
+        connectionListener.onConnectionClosed();
     }
     client.disconnect();
   }
 
-  @Override
-  public void run() {
+  public void connect() {
     try {
       if (client.isConnected()) {
         return;
       }
-      client.setConnectTimeout(timeout);
+      client.setConnectTimeout((int) timeout);
       client.connect(address, port);
-
+      
       this.input = client.getInputStream();
       this.output = client.getOutputStream();
     } catch (IOException e) {
-      e.printStackTrace();
+      connectionListener.onException(e);
     }
   }
 
@@ -74,8 +73,5 @@ public class VTProxyController implements Runnable {
   public OutputStream getOutput() {
     return output;
   }
-
-  public boolean isRunning() {
-    return client.isConnected();
-  }
+  
 }
