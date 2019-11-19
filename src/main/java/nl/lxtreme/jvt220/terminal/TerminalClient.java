@@ -3,12 +3,12 @@ package nl.lxtreme.jvt220.terminal;
 import java.awt.Dimension;
 import java.io.IOException;
 import nl.lxtreme.jvt220.terminal.vt220.VT220Terminal;
+import org.apache.commons.net.telnet.VT420Client;
 
 public class TerminalClient {
 
-  private VTProxyController client;
+  private VT420Client client;
   private VT220Terminal terminal;
-  private ConnectionListener connectionListener;
   private SwingFrontendProxy swingFrontendProxy;
 
   public TerminalClient(Dimension screenSize) {
@@ -18,51 +18,24 @@ public class TerminalClient {
     terminal.setFrontend(swingFrontendProxy);
   }
 
-  public void connect(String address, int port, long timeout, String terminalType) {
-    client = new VTProxyController(address, port, timeout, terminalType);
-    client.connect();
-    try {
-      terminal.getFrontend().connect(client.getInput(), client.getOutput());
-    } catch (IOException e) {
-      connectionListener.onException(e);
-    }
-
-    if (connectionListener != null) {
-      connectionListener.onConnection();
-    }
+  public void connect(String address, int port, int timeout, String terminalType)
+      throws IOException {
+    client = new VT420Client(terminalType);
+    client.setConnectTimeout(timeout);
+    client.connect(address, port);
+    terminal.getFrontend().connect(client.getInputStream(), client.getOutputStream());
   }
 
-  public void disconnect() {
-    if (client != null) {
-      try {
-        client.disconnect();
-      } catch (IOException e) {
-        connectionListener.onException(e);
-      }
-    }
-
+  public void disconnect() throws IOException {
+    client.disconnect();
   }
 
-
-  public void sendTextByCurrentCursorPosition(String text) {
-    try {
-      terminal.write(text);
-    } catch (IOException e) {
-      if (connectionListener != null) {
-        connectionListener.onException(e);
-      }
-    }
-  }
-
+  public void sendTextByCurrentCursorPosition(String text) throws IOException {
+    terminal.write(text);
   }
 
   public String getScreen() {
     return terminal.toString();
-  }
-
-
-  public void setConnectionListener(ConnectionListener connectionListener) {
-    this.connectionListener = connectionListener;
   }
 
   public void addScreenChangeListener(ScreenChangeListener listener) {
@@ -72,4 +45,5 @@ public class TerminalClient {
   public void removeScreenChangeListener(ScreenChangeListener listener) {
     swingFrontendProxy.removeScreenChangeListener(listener);
   }
+
 }

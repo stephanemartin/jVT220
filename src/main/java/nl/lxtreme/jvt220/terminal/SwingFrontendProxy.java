@@ -5,16 +5,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import nl.lxtreme.jvt220.terminal.ITerminal.ITextCell;
 import nl.lxtreme.jvt220.terminal.swing.SwingFrontend;
 
 public class SwingFrontendProxy implements ITerminalFrontend {
 
   private SwingFrontend swingFrontend;
-  private List<ScreenChangeListener> screenChangeListeners = new ArrayList<>();
+  private Set<ScreenChangeListener> screenChangeListeners = new HashSet<>();
 
   public SwingFrontendProxy() {
     this.swingFrontend = new SwingFrontend();
