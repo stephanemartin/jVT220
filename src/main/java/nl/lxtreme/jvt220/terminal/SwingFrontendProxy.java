@@ -5,18 +5,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.List;
 import nl.lxtreme.jvt220.terminal.ITerminal.ITextCell;
 import nl.lxtreme.jvt220.terminal.swing.SwingFrontend;
 
 public class SwingFrontendProxy implements ITerminalFrontend {
 
   private SwingFrontend swingFrontend;
-  private ScreenChangeListener changeListener;
+  private List<ScreenChangeListener> screenChangeListeners = new ArrayList<>();
 
-  public SwingFrontendProxy(ScreenChangeListener changeListener) {
+  public SwingFrontendProxy() {
     this.swingFrontend = new SwingFrontend();
-    this.changeListener = changeListener;
   }
 
   @Override
@@ -71,11 +72,12 @@ public class SwingFrontendProxy implements ITerminalFrontend {
 
   @Override
   public void terminalChanged(ITextCell[] cells, BitSet heatMap) {
-    changeListener.screenChanged(swingFrontend.getTerminal().toString());
+    screenChangeListeners.forEach(l -> l.screenChanged(swingFrontend.getTerminal().toString()));
   }
 
   @Override
   public void terminalSizeChanged(int columns, int alines) {
+    
   }
 
   @Override
@@ -87,4 +89,13 @@ public class SwingFrontendProxy implements ITerminalFrontend {
   public void writeCharacters(CharSequence chars) throws IOException {
     swingFrontend.writeCharacters(chars);
   }
+
+  public void addScreenChangeListener(ScreenChangeListener listener) {
+    screenChangeListeners.add(listener);
+  }
+
+  public void removeScreenChangeListener(ScreenChangeListener listener) {
+    screenChangeListeners.remove(listener);
+  }
+
 }

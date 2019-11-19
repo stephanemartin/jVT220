@@ -18,7 +18,7 @@ public class VTProxyController {
   private InputStream input;
   private OutputStream output;
   private ConnectionListener connectionListener;
-  
+
   public VTProxyController(String address, int port, long timeout, String terminalType) {
     this.address = address;
     this.port = port;
@@ -45,10 +45,10 @@ public class VTProxyController {
   }
 
   public void disconnect() throws IOException {
-    if (connectionListener!=null) {
-        connectionListener.onConnectionClosed();
-    }
     client.disconnect();
+    if (connectionListener != null) {
+      connectionListener.onConnectionClosed();
+    }
   }
 
   public void connect() {
@@ -58,11 +58,15 @@ public class VTProxyController {
       }
       client.setConnectTimeout((int) timeout);
       client.connect(address, port);
-      
-      this.input = client.getInputStream();
-      this.output = client.getOutputStream();
+      //not well approached 
+      while (input == null || output == null) {
+        this.input = client.getInputStream();
+        this.output = client.getOutputStream();
+      }
     } catch (IOException e) {
-      connectionListener.onException(e);
+      if (connectionListener != null) {
+        connectionListener.onException(e);
+      }
     }
   }
 
@@ -73,5 +77,4 @@ public class VTProxyController {
   public OutputStream getOutput() {
     return output;
   }
-  
 }
