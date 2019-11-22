@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * The propouse of this class to have the abillity to customize the outputStream
- * that TelnetClient use. The outputStream behaviour is modified in order to fulfill
+ * The propose of this class is to have the ability to customize the outputStream
+ * that TelnetClient uses. The outputStream behaviour is modified in order to fulfill
  * Telnet bytes when sending '\r'.
  * Currently, TelnetClient is sending after '\r' an '\u0000'. 
  */
