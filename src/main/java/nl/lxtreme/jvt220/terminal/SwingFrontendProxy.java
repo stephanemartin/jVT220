@@ -6,15 +6,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.BitSet;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import nl.lxtreme.jvt220.terminal.ITerminal.ITextCell;
 import nl.lxtreme.jvt220.terminal.swing.SwingFrontend;
 
 public class SwingFrontendProxy implements ITerminalFrontend {
 
   private SwingFrontend swingFrontend;
-  private Set<ScreenChangeListener> screenChangeListeners = new HashSet<>();
+  private Set<ScreenChangeListener> screenChangeListeners = ConcurrentHashMap.newKeySet();
 
   public SwingFrontendProxy() {
     this.swingFrontend = new SwingFrontend();
@@ -77,7 +77,7 @@ public class SwingFrontendProxy implements ITerminalFrontend {
 
   @Override
   public void terminalSizeChanged(int columns, int alines) {
-    
+
   }
 
   @Override

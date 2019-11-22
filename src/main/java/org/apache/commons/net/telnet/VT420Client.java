@@ -3,11 +3,17 @@ package org.apache.commons.net.telnet;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * The propouse of this class to have the abillity to customize the outputStream
+ * that TelnetClient use. The outputStream behaviour is modified in order to fulfill
+ * Telnet bytes when sending '\r'.
+ * Currently, TelnetClient is sending after '\r' an '\u0000'. 
+ */
 
 public class VT420Client extends TelnetClient {
 
   private OutputStream outputStream;
-
+  
   public VT420Client(String terminalType) {
     super(terminalType);
     try {

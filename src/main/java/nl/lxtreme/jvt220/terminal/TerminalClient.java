@@ -12,34 +12,28 @@ public class TerminalClient {
   private VT420Client client;
   private VT220Terminal terminal;
   private SwingFrontendProxy swingFrontendProxy;
-  private ConnectionListener connectionListener;
 
-  public TerminalClient(Dimension screenSize) {
+  public TerminalClient(Dimension screenSize, String terminalType) {
     this.terminal = new VT220Terminal(screenSize.width, screenSize.height);
+    client = new VT420Client(terminalType);
     swingFrontendProxy = new SwingFrontendProxy();
     swingFrontendProxy.setTerminal(terminal);
     terminal.setFrontend(swingFrontendProxy);
   }
 
-  public void connect(String address, int port, int timeout, String terminalType)
+  public void connect(String address, int port, int timeout)
       throws IOException {
-    client = new VT420Client(terminalType);
     client.setConnectTimeout(timeout);
     client.connect(address, port);
     terminal.getFrontend().connect(client.getInputStream(), client.getOutputStream());
-    if (connectionListener != null) {
-      connectionListener.onConnection();
-    }
   }
 
   public void disconnect() throws IOException {
     client.disconnect();
-    if (connectionListener != null) {
-      connectionListener.onConnectionClosed();
-    }
   }
 
   public void sendTextByCurrentCursorPosition(String text) throws IOException {
+
     terminal.write(text);
   }
 
@@ -63,9 +57,5 @@ public class TerminalClient {
 
   public Dimension getScreenSize() {
     return new Dimension(terminal.getWidth(), terminal.getHeight());
-  }
-
-  public void setConnectionListener(ConnectionListener connectionListener) {
-    this.connectionListener = connectionListener;
   }
 }
