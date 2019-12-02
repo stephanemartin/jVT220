@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.io.IOException;
 import java.util.Optional;
 import nl.lxtreme.jvt220.terminal.vt220.VT220Terminal;
+import org.apache.commons.net.telnet.TelnetNotificationHandler;
 import org.apache.commons.net.telnet.VT420Client;
 
 public class TerminalClient {
@@ -33,7 +34,6 @@ public class TerminalClient {
   }
 
   public void sendTextByCurrentCursorPosition(String text) throws IOException {
-
     terminal.write(text);
   }
 
@@ -57,5 +57,18 @@ public class TerminalClient {
 
   public Dimension getScreenSize() {
     return new Dimension(terminal.getWidth(), terminal.getHeight());
+  }
+
+  public void setExceptionListener(ExceptionListener listener) {
+    client.setExceptionListener(listener);
+  }
+  // notify handler is in charge to notify the negotiation between server and client
+  // this protocol always ends the conversation from the server side with a received_do
+  public void setConnectSyncListener(ConnectSyncListener connectSyncListener) {
+    client.registerNotifHandler((negotiation_code, option_code) -> {
+      if (option_code == TelnetNotificationHandler.RECEIVED_DO) {
+        connectSyncListener.connectionEstablished();
+      }
+    });
   }
 }

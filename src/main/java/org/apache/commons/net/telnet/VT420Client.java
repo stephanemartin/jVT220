@@ -2,18 +2,19 @@ package org.apache.commons.net.telnet;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import nl.lxtreme.jvt220.terminal.ExceptionListener;
 
 /**
- * The propose of this class is to have the ability to customize the outputStream
- * that TelnetClient uses. The outputStream behaviour is modified in order to fulfill
- * Telnet bytes when sending '\r'.
- * Currently, TelnetClient is sending after '\r' an '\u0000'. 
+ * The propose of this class is to have the ability to customize the outputStream that TelnetClient
+ * uses. The outputStream behaviour is modified in order to fulfill Telnet bytes when sending '\r'.
+ * Currently, TelnetClient is sending after '\r' an '\u0000'.
  */
 
 public class VT420Client extends TelnetClient {
 
   private OutputStream outputStream;
-  
+  private ExceptionListener exceptionListener;
+
   public VT420Client(String terminalType) {
     super(terminalType);
     try {
@@ -24,7 +25,7 @@ public class VT420Client extends TelnetClient {
       addOptionHandler(
           new SuppressGAOptionHandler(true, true, true, true));
     } catch (InvalidTelnetOptionException | IOException e) {
-      throw new RuntimeException(e);
+      exceptionListener.onException(new RuntimeException(e));
     }
   }
 
@@ -48,6 +49,10 @@ public class VT420Client extends TelnetClient {
         outputStream = null;
       }
     }
+  }
+
+  public void setExceptionListener(ExceptionListener listener) {
+    this.exceptionListener = listener;
   }
 
   /*
@@ -126,4 +131,9 @@ public class VT420Client extends TelnetClient {
 
   }
 
+  @Override
+  public void registerNotifHandler(TelnetNotificationHandler notifhand) {
+    super.registerNotifHandler(notifhand);
+    
+  }
 }
