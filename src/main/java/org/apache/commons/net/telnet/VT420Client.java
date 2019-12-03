@@ -25,7 +25,7 @@ public class VT420Client extends TelnetClient {
       addOptionHandler(
           new SuppressGAOptionHandler(true, true, true, true));
     } catch (InvalidTelnetOptionException | IOException e) {
-      exceptionListener.onException(new RuntimeException(e));
+      exceptionListener.onException(e);
     }
   }
 
@@ -130,8 +130,7 @@ public class VT420Client extends TelnetClient {
     }
 
   }
-
-  @Override
+  
   public void registerNotifHandler(TelnetNotificationHandler notifhand) {
     super.registerNotifHandler(notifhand);
     

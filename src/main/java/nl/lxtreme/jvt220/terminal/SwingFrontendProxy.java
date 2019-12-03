@@ -72,7 +72,6 @@ public class SwingFrontendProxy implements ITerminalFrontend {
 
   @Override
   public void terminalChanged(ITextCell[] cells, BitSet heatMap) {
-    System.out.println(swingFrontend.getTerminal().toString());
     screenChangeListeners.forEach(l -> l.screenChanged(swingFrontend.getTerminal().toString()));
   }
 

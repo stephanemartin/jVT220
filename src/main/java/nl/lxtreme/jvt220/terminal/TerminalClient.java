@@ -62,6 +62,7 @@ public class TerminalClient {
   public void setExceptionListener(ExceptionListener listener) {
     client.setExceptionListener(listener);
   }
+
   // notify handler is in charge to notify the negotiation between server and client
   // this protocol always ends the conversation from the server side with a received_do
   public void setConnectSyncListener(ConnectSyncListener connectSyncListener) {
