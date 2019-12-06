@@ -2,7 +2,7 @@ package org.apache.commons.net.telnet;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import nl.lxtreme.jvt220.terminal.ExceptionListener;
+import nl.lxtreme.jvt220.terminal.ConnectionStateListener;
 
 /**
  * The propose of this class is to have the ability to customize the outputStream that TelnetClient
@@ -13,7 +13,7 @@ import nl.lxtreme.jvt220.terminal.ExceptionListener;
 public class VT420Client extends TelnetClient {
 
   private OutputStream outputStream;
-  private ExceptionListener exceptionListener;
+  private ConnectionStateListener connectionStateListener;
 
   public VT420Client(String terminalType) {
     super(terminalType);
@@ -25,7 +25,7 @@ public class VT420Client extends TelnetClient {
       addOptionHandler(
           new SuppressGAOptionHandler(true, true, true, true));
     } catch (InvalidTelnetOptionException | IOException e) {
-      exceptionListener.onException(e);
+      connectionStateListener.onException(e);
     }
   }
 
@@ -51,8 +51,8 @@ public class VT420Client extends TelnetClient {
     }
   }
 
-  public void setExceptionListener(ExceptionListener listener) {
-    this.exceptionListener = listener;
+  public void setConnectionStateListener(ConnectionStateListener listener) {
+    this.connectionStateListener = listener;
   }
 
   /*

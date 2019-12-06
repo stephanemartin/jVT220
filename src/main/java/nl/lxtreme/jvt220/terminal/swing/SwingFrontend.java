@@ -21,19 +21,47 @@
 package nl.lxtreme.jvt220.terminal.swing;
 
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.font.*;
-import java.awt.image.*;
-import java.io.*;
-import java.text.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.font.FontRenderContext;
+import java.awt.font.LineBreakMeasurer;
+import java.awt.font.TextAttribute;
+import java.awt.font.TextLayout;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.text.AttributedCharacterIterator;
+import java.text.AttributedString;
+import java.util.BitSet;
 import java.util.List;
-
-import javax.swing.*;
-
-import nl.lxtreme.jvt220.terminal.*;
+import javax.swing.Action;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+import nl.lxtreme.jvt220.terminal.ConnectionStateListener;
+import nl.lxtreme.jvt220.terminal.ICursor;
+import nl.lxtreme.jvt220.terminal.ITerminal;
 import nl.lxtreme.jvt220.terminal.ITerminal.ITextCell;
+import nl.lxtreme.jvt220.terminal.ITerminalColorScheme;
+import nl.lxtreme.jvt220.terminal.ITerminalFrontend;
 
 
 /**
@@ -124,7 +152,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
       }
       catch ( IOException exception )
       {
-        exception.printStackTrace(); // XXX
+        connectionStateListener.onException(exception);
       }
     }
   }
@@ -149,7 +177,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   private ITerminal m_terminal;
   private InputStreamWorker m_inputStreamWorker;
   private Writer m_writer;
-
+  private ConnectionStateListener connectionStateListener;
   // CONSTRUCTORS
 
   /**
@@ -837,9 +865,9 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
         }
       }
     }
-    catch ( IOException exception )
+    catch ( IOException exception ) 
     {
-      exception.printStackTrace(); // XXX
+      connectionStateListener.onException(exception);
     }
 
     return false;
@@ -1026,5 +1054,14 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
     return ( c != KeyEvent.VK_UNDEFINED ) && ( c != KeyEvent.VK_SHIFT ) && ( c != KeyEvent.VK_ALT )
         && ( c != KeyEvent.VK_ALT_GRAPH ) && ( c != KeyEvent.VK_META ) && ( c != KeyEvent.VK_WINDOWS )
         && ( c != KeyEvent.VK_CONTROL );
+  }
+  
+  public void setConnectionStateListener(ConnectionStateListener connectionStateListener) 
+  {
+  if(m_terminal != null)
+    {
+      this.connectionStateListener = connectionStateListener;
+      m_terminal.setConnectionStateListener(connectionStateListener);
+    }
   }
 }

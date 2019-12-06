@@ -218,6 +218,8 @@ public abstract class AbstractTerminal implements ITerminal
 
   private int m_logLevel;
 
+  protected ConnectionStateListener connectionStateListener;
+  
   private int m_firstScrollLine;
   private int m_lastScrollLine;
   /**
@@ -1061,10 +1063,16 @@ public abstract class AbstractTerminal implements ITerminal
     {
       return;
     }
-
+    
+    if (connectionStateListener != null)
+    {
+      connectionStateListener.onLogger(text, this.getClass());
+      return;
+    }
+    
     System.out.printf( "LOG> %s%n", text );
   }
-
+  
   /**
    * Removes the character at the absolute index.
    * 
@@ -1318,4 +1326,11 @@ public abstract class AbstractTerminal implements ITerminal
       m_frontend.terminalSizeChanged( width, height );
     }
   }
+  
+  @Override
+  public void setConnectionStateListener(ConnectionStateListener connectionStateListener) 
+  {
+    this.connectionStateListener = connectionStateListener;  
+  }
+  
 }
