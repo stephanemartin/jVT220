@@ -1,0 +1,19 @@
+language: java
+dist: trusty
+jdk: oraclejdk8
+cache:
+  directories:
+  - "$HOME/.m2"
+before_deploy:
+- mvn --batch-mode versions:set -DnewVersion="$(T=${jvt420-%%TRAVIS_TAG}; echo ${T:1})"
+- mvn clean package -DskipTests
+deploy:
+  provider: releases
+  api_key:
+    secure: "${VT420_KEY}"
+  file_glob: true
+  file: target/jvt420-*.jar
+  skip_cleanup: true
+  on:
+    repo: Blazemeter/jVT220
+    tags: true

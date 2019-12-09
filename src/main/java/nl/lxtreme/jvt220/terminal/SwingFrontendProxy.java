@@ -12,7 +12,7 @@ import nl.lxtreme.jvt220.terminal.ITerminal.ITextCell;
 import nl.lxtreme.jvt220.terminal.swing.SwingFrontend;
 
 public class SwingFrontendProxy implements ITerminalFrontend {
-
+  
   private SwingFrontend swingFrontend;
   private Set<ScreenChangeListener> screenChangeListeners = ConcurrentHashMap.newKeySet();
 
@@ -77,7 +77,7 @@ public class SwingFrontendProxy implements ITerminalFrontend {
 
   @Override
   public void terminalSizeChanged(int columns, int alines) {
-
+    
   }
 
   @Override
@@ -98,4 +98,7 @@ public class SwingFrontendProxy implements ITerminalFrontend {
     screenChangeListeners.remove(listener);
   }
 
+  public void setExceptionListener(ExceptionListener exceptionListener) {
+    swingFrontend.setExceptionListener(exceptionListener);
+  }
 }
