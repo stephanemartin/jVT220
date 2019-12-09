@@ -2,7 +2,6 @@ package org.apache.commons.net.telnet;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import nl.lxtreme.jvt220.terminal.ConnectionStateListener;
 
 /**
  * The propose of this class is to have the ability to customize the outputStream that TelnetClient
@@ -13,20 +12,20 @@ import nl.lxtreme.jvt220.terminal.ConnectionStateListener;
 public class VT420Client extends TelnetClient {
 
   private OutputStream outputStream;
-  private ConnectionStateListener connectionStateListener;
-
+  private String terminalType;
   public VT420Client(String terminalType) {
     super(terminalType);
-    try {
-      addOptionHandler(
-          new TerminalTypeOptionHandler(terminalType, false, false, true, false));
-      addOptionHandler(
-          new EchoOptionHandler(true, false, true, true));
-      addOptionHandler(
-          new SuppressGAOptionHandler(true, true, true, true));
-    } catch (InvalidTelnetOptionException | IOException e) {
-      connectionStateListener.onException(e);
-    }
+    this.terminalType = terminalType;
+  }
+
+  public void setupOptionHandlers()
+      throws InvalidTelnetOptionException, IOException {
+    addOptionHandler(
+        new TerminalTypeOptionHandler(terminalType, false, false, true, false));
+    addOptionHandler(
+        new EchoOptionHandler(true, false, true, true));
+    addOptionHandler(
+        new SuppressGAOptionHandler(true, true, true, true));
   }
 
   @Override
@@ -49,10 +48,6 @@ public class VT420Client extends TelnetClient {
         outputStream = null;
       }
     }
-  }
-
-  public void setConnectionStateListener(ConnectionStateListener listener) {
-    this.connectionStateListener = listener;
   }
 
   /*
@@ -129,10 +124,5 @@ public class VT420Client extends TelnetClient {
       client._closeOutputStream();
     }
 
-  }
-  
-  public void registerNotifHandler(TelnetNotificationHandler notifhand) {
-    super.registerNotifHandler(notifhand);
-    
   }
 }

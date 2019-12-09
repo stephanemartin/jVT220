@@ -98,7 +98,7 @@ public class SwingFrontendProxy implements ITerminalFrontend {
     screenChangeListeners.remove(listener);
   }
 
-  public void setConnectionStateListener(ConnectionStateListener connectionStateListener) {
-    swingFrontend.setConnectionStateListener(connectionStateListener);
+  public void setExceptionListener(ExceptionListener exceptionListener) {
+    swingFrontend.setExceptionListener(exceptionListener);
   }
 }

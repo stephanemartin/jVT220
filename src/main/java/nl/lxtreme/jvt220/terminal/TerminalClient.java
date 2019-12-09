@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.io.IOException;
 import java.util.Optional;
 import nl.lxtreme.jvt220.terminal.vt220.VT220Terminal;
+import org.apache.commons.net.telnet.InvalidTelnetOptionException;
 import org.apache.commons.net.telnet.VT420Client;
 
 public class TerminalClient {
@@ -22,7 +23,8 @@ public class TerminalClient {
   }
 
   public void connect(String address, int port, int timeout)
-      throws IOException {
+      throws IOException, InvalidTelnetOptionException {
+    client.setupOptionHandlers();
     client.setConnectTimeout(timeout);
     client.connect(address, port);
     terminal.getFrontend().connect(client.getInputStream(), client.getOutputStream());
@@ -58,9 +60,8 @@ public class TerminalClient {
     return new Dimension(terminal.getWidth(), terminal.getHeight());
   }
 
-  public void setConnectionStateListener(ConnectionStateListener listener) {
-    client.setConnectionStateListener(listener);
-    swingFrontendProxy.setConnectionStateListener(listener);
+  public void setExceptionListener(ExceptionListener listener) {
+    swingFrontendProxy.setExceptionListener(listener);
   }
 
 }

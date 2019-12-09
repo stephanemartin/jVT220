@@ -219,6 +219,5 @@ public interface ITerminal extends Closeable
    *           in case of I/O exceptions handling the input.
    */
   int write( CharSequence chars ) throws IOException;
-
-  void setConnectionStateListener(ConnectionStateListener connectionStateListener);
+  
 }

@@ -33,6 +33,8 @@ import nl.lxtreme.jvt220.terminal.vt220.CharacterSets.CharacterSet;
 import nl.lxtreme.jvt220.terminal.vt220.CharacterSets.GraphicSet;
 import nl.lxtreme.jvt220.terminal.vt220.VT220Parser.CSIType;
 import nl.lxtreme.jvt220.terminal.vt220.VT220Parser.VT220ParserHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -41,7 +43,7 @@ import nl.lxtreme.jvt220.terminal.vt220.VT220Parser.VT220ParserHandler;
 public class VT220Terminal extends AbstractTerminal implements VT220ParserHandler
 {
   // INNER TYPES
-
+  private static final Logger LOG = LoggerFactory.getLogger(VT220Terminal.class);
   /**
    * Provides the current state of the graphic set.
    */
@@ -197,9 +199,8 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   static class StateHolder
   {
     // VARIABLES
-
+    
     private final CharacterSet[] m_graphicSetDesignations;
-
     private int m_cursorIndex;
     private short m_attrs;
     private boolean m_autoWrap;
@@ -703,7 +704,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
 
       default:
       {
-        log( "Unknown control character: " + ( int )controlChar );
+        LOG.info( "Unknown control character: {}", ( int )controlChar );
         break;
       }
     }
@@ -1140,7 +1141,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            log( "Unknown SET MODE: " + arg );
+            LOG.info( "Unknown SET MODE: {}", arg );
             break;
         }
         break;
@@ -1221,7 +1222,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            log( "Unknown DEC SET PRIVATE MODE: " + arg );
+            LOG.info( "Unknown DEC SET PRIVATE MODE: {}", arg);
             break;
         }
         break;
@@ -1281,7 +1282,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            log( "Unknown RESET MODE: " + arg );
+            LOG.info( "Unknown RESET MODE: {}", arg );
             break;
         }
         break;
@@ -1358,7 +1359,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            log( "Unknown DEC RESET PRIVATE MODE: " + arg );
+            LOG.info( "Unknown DEC RESET PRIVATE MODE: {}", arg );
             break;
         }
         break;
@@ -1418,7 +1419,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            log( "Unknown/unhandled DECSDR argument: " + arg );
+            LOG.info( "Unknown/unhandled DECSDR argument: {}", arg );
             break;
         }
         break;
@@ -1581,7 +1582,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
         break;
 
       default:
-        log( "Unhandled CSI: " + type );
+        LOG.info( "Unhandled CSI: {}", type );
         break;
     }
     // Update the cursor position...
@@ -1712,7 +1713,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            log( "Unhandled argument for ESC sp: " + arg );
+            LOG.info( "Unhandled argument for ESC sp: {}", arg );
             break;
         }
         break;
@@ -1738,7 +1739,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            log( "Unhandled argument for ESC sp: " + arg );
+            LOG.info( "Unhandled argument for ESC sp: {}", arg );
             break;
         }
         break;
@@ -1768,7 +1769,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
 
       default:
       {
-        log( "Unhandled ESC designator: " + designator );
+        LOG.info( "Unhandled ESC designator: {}", designator );
         break;
       }
     }
@@ -2187,7 +2188,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
     }
     else if ( parameter > 0 )
     {
-      log( "Unhandled attribute: " + parameter );
+      LOG.warn( "Unhandled attribute: {}", parameter );
     }
   }
 
@@ -2306,7 +2307,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   {
     if ( arg != 0 )
     {
-      log( "Unknown DA: " + arg );
+      LOG.info( "Unknown DA: {}", arg );
     }
     else
     {

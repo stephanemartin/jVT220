@@ -56,7 +56,7 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import nl.lxtreme.jvt220.terminal.ConnectionStateListener;
+import nl.lxtreme.jvt220.terminal.ExceptionListener;
 import nl.lxtreme.jvt220.terminal.ICursor;
 import nl.lxtreme.jvt220.terminal.ITerminal;
 import nl.lxtreme.jvt220.terminal.ITerminal.ITextCell;
@@ -152,7 +152,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
       }
       catch ( IOException exception )
       {
-        connectionStateListener.onException(exception);
+        exceptionListener.onException(exception);
       }
     }
   }
@@ -177,7 +177,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   private ITerminal m_terminal;
   private InputStreamWorker m_inputStreamWorker;
   private Writer m_writer;
-  private ConnectionStateListener connectionStateListener;
+  private ExceptionListener exceptionListener;
   // CONSTRUCTORS
 
   /**
@@ -867,7 +867,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
     }
     catch ( IOException exception ) 
     {
-      connectionStateListener.onException(exception);
+      exceptionListener.onException(exception);
     }
 
     return false;
@@ -1055,13 +1055,10 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
         && ( c != KeyEvent.VK_ALT_GRAPH ) && ( c != KeyEvent.VK_META ) && ( c != KeyEvent.VK_WINDOWS )
         && ( c != KeyEvent.VK_CONTROL );
   }
-  
-  public void setConnectionStateListener(ConnectionStateListener connectionStateListener) 
-  {
-  if(m_terminal != null)
-    {
-      this.connectionStateListener = connectionStateListener;
-      m_terminal.setConnectionStateListener(connectionStateListener);
-    }
+
+  public void setExceptionListener(ExceptionListener exceptionListener) {
+
+    this.exceptionListener = exceptionListener;
+
   }
 }
