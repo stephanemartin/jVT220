@@ -10,7 +10,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: 8b0650b8342075ac15ef93ef33041e508931bdbf
+    secure: "${VT420_KEY}"
   file_glob: true
   file: target/jvt420-*.jar
   skip_cleanup: true

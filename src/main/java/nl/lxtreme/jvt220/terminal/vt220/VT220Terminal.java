@@ -704,7 +704,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
 
       default:
       {
-        LOG.info( "Unknown control character: {}", ( int )controlChar );
+        LOG.warn( "Unknown control character: {}", ( int )controlChar );
         break;
       }
     }
@@ -1141,7 +1141,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.info( "Unknown SET MODE: {}", arg );
+            LOG.warn( "Unknown SET MODE: {}", arg );
             break;
         }
         break;
@@ -1222,7 +1222,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.info( "Unknown DEC SET PRIVATE MODE: {}", arg);
+            LOG.warn( "Unknown DEC SET PRIVATE MODE: {}", arg);
             break;
         }
         break;
@@ -1282,7 +1282,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.info( "Unknown RESET MODE: {}", arg );
+            LOG.warn( "Unknown RESET MODE: {}", arg );
             break;
         }
         break;
@@ -1359,7 +1359,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.info( "Unknown DEC RESET PRIVATE MODE: {}", arg );
+            LOG.warn( "Unknown DEC RESET PRIVATE MODE: {}", arg );
             break;
         }
         break;
@@ -1419,7 +1419,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.info( "Unknown/unhandled DECSDR argument: {}", arg );
+            LOG.warn( "Unknown/unhandled DECSDR argument: {}", arg );
             break;
         }
         break;
@@ -1582,7 +1582,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
         break;
 
       default:
-        LOG.info( "Unhandled CSI: {}", type );
+        LOG.warn( "Unhandled CSI: {}", type );
         break;
     }
     // Update the cursor position...
@@ -1713,7 +1713,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.info( "Unhandled argument for ESC sp: {}", arg );
+            LOG.warn( "Unhandled argument for ESC sp: {}", arg );
             break;
         }
         break;
@@ -1739,7 +1739,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.info( "Unhandled argument for ESC sp: {}", arg );
+            LOG.warn( "Unhandled argument for ESC sp: {}", arg );
             break;
         }
         break;
@@ -1769,7 +1769,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
 
       default:
       {
-        LOG.info( "Unhandled ESC designator: {}", designator );
+        LOG.warn( "Unhandled ESC designator: {}", designator );
         break;
       }
     }
@@ -2307,7 +2307,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   {
     if ( arg != 0 )
     {
-      LOG.info( "Unknown DA: {}", arg );
+      LOG.warn( "Unknown DA: {}", arg );
     }
     else
     {
