@@ -1,21 +1,15 @@
 # jVT220 - Java VT220 terminal emulator
 
-This library provides a small VT220 terminal emulator written in Java. It 
-attempts to emulate a VT220 as closely as possible and implements some of
-the functionality found in other types of terminals or terminal emulators,
-like VT340 and XTerm. 
+This repository is forked from [jvt220](https://github.com/jawi/jVT220).
+One of the most important changes in this forked version, is the addition of a [TerminalClient](/src/main/java/nl/lxtreme/jvt220/terminal/TerminalClient.java)  class, which allows to actually connect to a VT-type mainframe application, and then using this well modularized project to parse the received information from [TelnetClient](https://commons.apache.org/proper/commons-net/) socket. 
 
-## History
-
-```
-2013-01-12 | JaWi | v1.0.0 | Initial release.
-2013-02-05 | JaWi | v1.1.0 | Fixed incorrect calculation of heat map when scrolling up; improved the repainting of the Swing frontend; allow character encoding to be specified; allow external writes to the terminal.
-2013-02-05 | JaWi | v1.1.1 | The terminal calls the Swing frontend not from the EDT, ensure that all Swing-related actions are called from the EDT.  
-```
+For more information about the original project please visit the documentation [here](https://github.com/jawi/jVT220/blob/master/README.md) 
 
 ## Author
 
-This library is written by J.W. Janssen, <j.w.janssen@lxtreme.nl>.
+It is originally written by J.W. Janssen, <j.w.janssen@lxtreme.nl>.
+
+This version is currently maintained by BlazemeterLabs team. 
 
 ## License
 
