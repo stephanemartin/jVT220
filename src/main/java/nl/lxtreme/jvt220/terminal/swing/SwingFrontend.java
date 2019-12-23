@@ -45,6 +45,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.net.SocketException;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import java.util.BitSet;
@@ -136,6 +137,9 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
         if ( r > 0 )
         {
           publish( Integer.valueOf( r ) );
+        } else {
+          exceptionListener.onConnectionClosed();
+          return null;
         }
       }
       return null;

@@ -4,4 +4,5 @@ public interface ExceptionListener {
 
   void onException(Throwable e);
   
+  void onConnectionClosed();
 }

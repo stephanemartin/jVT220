@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.Optional;
 import nl.lxtreme.jvt220.terminal.vt220.VT220Terminal;
 import org.apache.commons.net.telnet.InvalidTelnetOptionException;
@@ -41,19 +40,7 @@ public class TerminalClient {
   }
 
   public void sendTextByCurrentCursorPosition(String text) throws IOException {
-    if (!client.isAvailable() || !isHostAvailable()) {
-      throw new SocketException("Server is down");
-    }
     terminal.write(text);
-  }
-
-  private boolean isHostAvailable() {
-    try (Socket socket = new Socket(address, port)) {
-      socket.close();
-      return true;
-    } catch (IOException e) {
-      return false;
-    }
   }
 
   public String getScreen() {
