@@ -136,6 +136,9 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
         if ( r > 0 )
         {
           publish( Integer.valueOf( r ) );
+        } else {
+          exceptionListener.onConnectionClosed();
+          return null;
         }
       }
       return null;
