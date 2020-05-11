@@ -1,6 +1,6 @@
 /**
  * jVT220 - Java VT220 terminal emulator.
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -69,6 +69,7 @@ import nl.lxtreme.jvt220.terminal.ITerminalFrontend;
  */
 public class SwingFrontend extends JComponent implements ITerminalFrontend
 {
+
   // INNER TYPES
 
   /**
@@ -83,7 +84,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
     /**
      * Creates a new {@link CharacterDimensions} instance.
-     * 
+     *
      * @param width
      *          the width of a single character, in pixels;
      * @param height
@@ -103,7 +104,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
    * Asynchronous worker that reads data from an input stream and passes this to
    * the terminal backend.
    */
-  final class InputStreamWorker extends SwingWorker<Void, Integer>
+  protected final class InputStreamWorker extends SwingWorker<Void, Integer>
   {
     // VARIABLES
 
@@ -113,7 +114,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
     /**
      * Creates a new {@link InputStreamWorker} instance.
-     * 
+     *
      * @param inputStream
      *          the input stream to read from, cannot be <code>null</code>;
      * @param encoding
@@ -169,7 +170,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   // VARIABLES
 
-  private final String m_encoding;
+  protected final String m_encoding;
   private final CharBuffer m_buffer;
 
   private ITerminalColorScheme m_colorScheme;
@@ -178,8 +179,8 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   private volatile BufferedImage m_image;
   private volatile boolean m_listening;
   private ITerminal m_terminal;
-  private InputStreamWorker m_inputStreamWorker;
-  private Writer m_writer;
+  protected InputStreamWorker m_inputStreamWorker;
+  protected Writer m_writer;
   private ExceptionListener exceptionListener;
   // CONSTRUCTORS
 
@@ -193,7 +194,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Creates a new {@link SwingFrontend} instance.
-   * 
+   *
    * @param encoding
    *          the character encoding to use for the terminal.
    */
@@ -223,7 +224,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   /**
    * Calculates the character dimensions for the given font, which is presumed
    * to be a monospaced font.
-   * 
+   *
    * @param aFont
    *          the font to get the character dimensions for, cannot be
    *          <code>null</code>.
@@ -249,7 +250,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   /**
    * Calculates the union of two rectangles, allowing <code>null</code> values
    * to be passed in.
-   * 
+   *
    * @param rect1
    *          the 1st rectangle to create the union, if <code>null</code>, the
    *          2nd argument will be returned;
@@ -278,7 +279,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
    * This method will start a background thread to read continuously from the
    * given input stream.
    * </p>
-   * 
+   *
    * @param inputStream
    *          the input stream to connect to, cannot be <code>null</code>;
    * @param outputStream
@@ -301,10 +302,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
     disconnect();
 
     m_writer = new OutputStreamWriter( outputStream, m_encoding );
-
-    m_inputStreamWorker = new InputStreamWorker( inputStream, m_encoding );
     m_inputStreamWorker.execute();
-
     setEnabled( true );
   }
 
@@ -315,7 +313,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
    * {@link #writeCharacters(Integer...)} yourself in order to let anything
    * appear on the terminal.
    * </p>
-   * 
+   *
    * @param outputStream
    *          the output stream to connect to, cannot be <code>null</code>.
    * @throws IOException
@@ -338,7 +336,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Disconnects this frontend from any input and output stream.
-   * 
+   *
    * @throws IOException
    *           in case of I/O problems.
    */
@@ -387,7 +385,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Returns the current terminal.
-   * 
+   *
    * @return the terminal, can be <code>null</code>.
    */
   public ITerminal getTerminal()
@@ -518,7 +516,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   /**
    * Writes the given sequence of characters directly to the terminal, similar
    * as writing to the standard output.
-   * 
+   *
    * @param charSeq
    *          the sequence of characters to write, cannot be <code>null</code>.
    * @throws IOException
@@ -540,7 +538,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   /**
    * Writes the given array of characters directly to the terminal, similar as
    * writing to the standard output.
-   * 
+   *
    * @param chars
    *          the characters to write, cannot be <code>null</code>.
    * @throws IOException
@@ -558,7 +556,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Recreates the terminal image.
-   * 
+   *
    * @param columns
    *          the new number of columns, > 0;
    * @param lines
@@ -601,7 +599,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Updates the image representing the terminal contents.
-   * 
+   *
    * @param cells
    *          the text cells;
    * @param heatMap
@@ -752,7 +750,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Maps the given keycode and modifiers to a terminal specific sequence.
-   * 
+   *
    * @param keycode
    *          the keycode to map;
    * @param modifiers
@@ -768,7 +766,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   /**
    * Creates a key mapping for the given keystroke and the given action which is
    * send as literal text to the terminal.
-   * 
+   *
    * @param keycode
    *          the keycode to map.
    */
@@ -780,7 +778,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   /**
    * Creates a key mapping for the given keystroke and the given action which is
    * send as literal text to the terminal.
-   * 
+   *
    * @param keycode
    *          the keycode to map;
    * @param modifiers
@@ -868,7 +866,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
         }
       }
     }
-    catch ( IOException exception ) 
+    catch ( IOException exception )
     {
       exceptionListener.onException(exception);
     }
@@ -878,7 +876,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Writes a given number of characters to the terminal.
-   * 
+   *
    * @param chars
    *          the characters to write, cannot be <code>null</code>.
    * @throws IOException
@@ -895,7 +893,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Writes a given number of characters to the terminal.
-   * 
+   *
    * @param chars
    *          the characters to write, cannot be <code>null</code>.
    * @throws IOException
@@ -913,7 +911,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   /**
    * Applies the attributes from the given {@link TextCell} to the given
    * {@link AttributedString}.
-   * 
+   *
    * @param textCell
    *          the text cell to get the attributes from;
    * @param attributedString
@@ -949,7 +947,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Calculates the size (in pixels) of the back buffer image.
-   * 
+   *
    * @param columns
    *          the number of columns, > 0;
    * @param lines
@@ -967,7 +965,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Calculates the total insets of this container and all of its parents.
-   * 
+   *
    * @return the total insets, never <code>null</code>.
    */
   private Insets calculateTotalInsets()
@@ -991,7 +989,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Converts a given color index to a concrete color value.
-   * 
+   *
    * @param index
    *          the numeric color index, >= 0;
    * @param defaultColor
@@ -1009,7 +1007,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
 
   /**
    * Draws the cursor on screen.
-   * 
+   *
    * @param canvas
    *          the canvas to paint on;
    * @param cursor
@@ -1044,7 +1042,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   /**
    * Returns whether the given keystroke represents a "regular" key, that is, it
    * is defined and not a modifier.
-   * 
+   *
    * @param keystroke
    *          the keystroke to test, cannot be <code>null</code>.
    * @return <code>false</code> if the given keystroke is either not defined or

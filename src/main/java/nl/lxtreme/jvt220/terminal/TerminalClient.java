@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.Optional;
+import javax.net.SocketFactory;
 import nl.lxtreme.jvt220.terminal.vt220.VT220Terminal;
 import org.apache.commons.net.telnet.InvalidTelnetOptionException;
 import org.apache.commons.net.telnet.VT420Client;
@@ -32,6 +33,7 @@ public class TerminalClient {
 
   public void disconnect() throws IOException {
     client.disconnect();
+    swingFrontendProxy.disconnect();
   }
 
   public void sendTextByCurrentCursorPosition(String text) throws IOException {
@@ -62,6 +64,10 @@ public class TerminalClient {
 
   public void setExceptionListener(ExceptionListener listener) {
     swingFrontendProxy.setExceptionListener(listener);
+  }
+
+  public void setSocketFactory(SocketFactory socketFactory) {
+    client.setSocketFactory(socketFactory);
   }
 
 }

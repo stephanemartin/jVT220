@@ -1,53 +1,56 @@
 package nl.lxtreme.jvt220.terminal;
 
-import java.awt.Dimension;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.util.BitSet;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import nl.lxtreme.jvt220.terminal.ITerminal.ITextCell;
 import nl.lxtreme.jvt220.terminal.swing.SwingFrontend;
 
-public class SwingFrontendProxy implements ITerminalFrontend {
+public class SwingFrontendProxy extends SwingFrontend {
 
-  private SwingFrontend swingFrontend;
-  private Set<ScreenChangeListener> screenChangeListeners = ConcurrentHashMap.newKeySet();
+  private static final int MAX_THREAD_POOL = 150;
+  private List<ScreenChangeListener> screenChangeListeners = new CopyOnWriteArrayList<>();
+  private ExecutorService swingThreadPool;
 
   public SwingFrontendProxy() {
-    this.swingFrontend = new SwingFrontend();
+    super();
   }
 
   @Override
   public void connect(InputStream inputStream, OutputStream outputStream) throws IOException {
-    swingFrontend.connect(inputStream, outputStream);
+    if (inputStream == null) {
+      throw new IllegalArgumentException("Input stream cannot be null!");
+    }
+    if (outputStream == null) {
+      throw new IllegalArgumentException("Output stream cannot be null!");
+    }
+
+    disconnect();
+
+    m_writer = new OutputStreamWriter(outputStream, m_encoding);
+    ThreadFactory threadFactory = r -> new Thread(r, "jVT-Frontend-Workers");
+    m_inputStreamWorker = new InputStreamWorker(inputStream, m_encoding);
+    swingThreadPool = Executors.newFixedThreadPool(MAX_THREAD_POOL, threadFactory);
+    swingThreadPool.submit(m_inputStreamWorker);
+    setEnabled(true);
   }
 
   @Override
-  public void connect(OutputStream outputStream) throws IOException {
-    swingFrontend.connect(outputStream);
-  }
-
-  @Override
-  public void disconnect() throws IOException {
-    swingFrontend.disconnect();
-  }
-
-  @Override
-  public Dimension getMaximumTerminalSize() {
-    return swingFrontend.getMaximumTerminalSize();
-  }
-
-  @Override
-  public Dimension getSize() {
-    return swingFrontend.getSize();
-  }
-
-  @Override
-  public Writer getWriter() {
-    return swingFrontend.getWriter();
+  public void disconnect() {
+    if (super.m_inputStreamWorker != null) {
+      if (swingThreadPool != null) {
+        swingThreadPool.shutdownNow();
+      }
+      m_inputStreamWorker.cancel(true /* mayInterruptIfRunning */);
+      m_inputStreamWorker = null;
+    }
   }
 
   @Override
@@ -56,38 +59,13 @@ public class SwingFrontendProxy implements ITerminalFrontend {
   }
 
   @Override
-  public void setReverse(boolean reverse) {
-    swingFrontend.setReverse(reverse);
-  }
-
-  @Override
-  public void setSize(int width, int height) {
-    swingFrontend.setSize(width, height);
-  }
-
-  @Override
-  public void setTerminal(ITerminal terminal) {
-    swingFrontend.setTerminal(terminal);
-  }
-
-  @Override
   public void terminalChanged(ITextCell[] cells, BitSet heatMap) {
-    screenChangeListeners.forEach(l -> l.screenChanged(swingFrontend.getTerminal().toString()));
+    screenChangeListeners.forEach(l -> l.screenChanged(super.getTerminal().toString()));
   }
 
   @Override
   public void terminalSizeChanged(int columns, int alines) {
 
-  }
-
-  @Override
-  public void writeCharacters(Integer... chars) throws IOException {
-    swingFrontend.writeCharacters(chars);
-  }
-
-  @Override
-  public void writeCharacters(CharSequence chars) throws IOException {
-    swingFrontend.writeCharacters(chars);
   }
 
   public void addScreenChangeListener(ScreenChangeListener listener) {
@@ -96,9 +74,5 @@ public class SwingFrontendProxy implements ITerminalFrontend {
 
   public void removeScreenChangeListener(ScreenChangeListener listener) {
     screenChangeListeners.remove(listener);
-  }
-
-  public void setExceptionListener(ExceptionListener exceptionListener) {
-    swingFrontend.setExceptionListener(exceptionListener);
   }
 }

@@ -2,6 +2,7 @@ package org.apache.commons.net.telnet;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import javax.net.SocketFactory;
 
 /**
  * The propose of this class is to have the ability to customize the outputStream that TelnetClient
@@ -32,6 +33,10 @@ public class VT420Client extends TelnetClient {
   protected void _connectAction_() throws IOException {
     super._connectAction_();
     outputStream = new VT420OutputStream(this);
+  }
+
+  public void setSocketFactory(SocketFactory factory) {
+    super.setSocketFactory(factory);
   }
 
   @Override

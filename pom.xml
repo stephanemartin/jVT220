@@ -5,14 +5,40 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.blazemeter</groupId>
-  <artifactId>jvt220</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <artifactId>jVT220</artifactId>
+  <version>1.2.2-SNAPSHOT</version>
 
+  <name>${project.artifactId}</name>
+  <description>This is a fork of https://github.com/jawi/jVT220/</description>
+  <url>https://github.com/blazemeter/jvt220</url>
+
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  
+  <developers>
+    <developer>
+      <name>Blazemeter</name>
+      <email>ops@blazemeter.com</email>
+      <organization>Blazemeter</organization>
+      <organizationUrl>https://blazemeter.com/</organizationUrl>
+    </developer>
+  </developers>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 
+  <scm>
+    <connection>scm:git:git://github.com/Blazemeter/jVT220.git</connection>
+    <developerConnection>scm:git:ssh://github.com/Blazemeter/jVT220.git</developerConnection>
+    <url>https://github.com/Blazemeter/jVT220/tree/master</url>
+  </scm>
+  
   <dependencies>
     <dependency>
       <groupId>commons-net</groupId>
@@ -54,6 +80,12 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>us.abstracta</groupId>
+      <artifactId>wiresham</artifactId>
+      <version>0.3</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <pluginManagement>
@@ -81,5 +113,40 @@
       </plugin>
     </plugins>
   </build>
-
+  
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
