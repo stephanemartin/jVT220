@@ -13,7 +13,7 @@ import javax.net.SocketFactory;
 public class VT420Client extends TelnetClient {
 
   private OutputStream outputStream;
-  private String terminalType;
+  private final String terminalType;
   public VT420Client(String terminalType) {
     super(terminalType);
     this.terminalType = terminalType;

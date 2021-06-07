@@ -1,8 +1,10 @@
 package nl.lxtreme.jvt220.terminal;
 
-public interface ExceptionListener {
+public interface ConnectionListener {
 
   void onException(Throwable e);
   
   void onConnectionClosed();
+  
+  void onConnection();
 }

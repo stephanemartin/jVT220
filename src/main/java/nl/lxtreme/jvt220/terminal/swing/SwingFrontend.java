@@ -56,7 +56,8 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import nl.lxtreme.jvt220.terminal.ExceptionListener;
+import nl.lxtreme.jvt220.terminal.ConnectionListener;
+import nl.lxtreme.jvt220.terminal.ConnectionListenerBroadcast;
 import nl.lxtreme.jvt220.terminal.ICursor;
 import nl.lxtreme.jvt220.terminal.ITerminal;
 import nl.lxtreme.jvt220.terminal.ITerminal.ITextCell;
@@ -138,7 +139,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
         {
           publish( Integer.valueOf( r ) );
         } else {
-          exceptionListener.onConnectionClosed();
+          connectionListener.onConnectionClosed();
           return null;
         }
       }
@@ -156,7 +157,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
       }
       catch ( IOException exception )
       {
-        exceptionListener.onException(exception);
+        connectionListener.onException(exception);
       }
     }
   }
@@ -181,7 +182,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   private ITerminal m_terminal;
   protected InputStreamWorker m_inputStreamWorker;
   protected Writer m_writer;
-  private ExceptionListener exceptionListener;
+  private ConnectionListener connectionListener;
   // CONSTRUCTORS
 
   /**
@@ -868,7 +869,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
     }
     catch ( IOException exception )
     {
-      exceptionListener.onException(exception);
+      connectionListener.onException(exception);
     }
 
     return false;
@@ -1057,9 +1058,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
         && ( c != KeyEvent.VK_CONTROL );
   }
 
-  public void setExceptionListener(ExceptionListener exceptionListener) {
-
-    this.exceptionListener = exceptionListener;
-
+  public void setConnectionListener(ConnectionListener connectionListener) {
+    this.connectionListener = connectionListener;
   }
 }
