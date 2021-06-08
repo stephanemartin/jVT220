@@ -218,8 +218,6 @@ public abstract class AbstractTerminal implements ITerminal
 
   private int m_logLevel;
 
-  protected ExceptionListener exceptionListener;
-  
   private int m_firstScrollLine;
   private int m_lastScrollLine;
   /**

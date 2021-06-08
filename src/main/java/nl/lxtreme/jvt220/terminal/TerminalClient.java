@@ -11,24 +11,32 @@ import org.apache.commons.net.telnet.VT420Client;
 
 public class TerminalClient {
 
-  private VT420Client client;
-  private VT220Terminal terminal;
-  private SwingFrontendProxy swingFrontendProxy;
+  private final VT420Client client;
+  private final VT220Terminal terminal;
+  private final SwingFrontendProxy swingFrontendProxy;
+  private final ConnectionListenerBroadcast connectionListenerBroadcast;
 
   public TerminalClient(Dimension screenSize, String terminalType) {
     this.terminal = new VT220Terminal(screenSize.width, screenSize.height);
     client = new VT420Client(terminalType);
+    connectionListenerBroadcast = new ConnectionListenerBroadcast();
     swingFrontendProxy = new SwingFrontendProxy();
     swingFrontendProxy.setTerminal(terminal);
+    swingFrontendProxy.setConnectionListener(connectionListenerBroadcast);
     terminal.setFrontend(swingFrontendProxy);
   }
 
   public void connect(String address, int port, int timeout)
-      throws IOException, InvalidTelnetOptionException {
-    client.setupOptionHandlers();
-    client.setConnectTimeout(timeout);
-    client.connect(address, port);
-    terminal.getFrontend().connect(client.getInputStream(), client.getOutputStream());
+      throws ConnectionException {
+    try {
+      client.setupOptionHandlers();
+      client.setConnectTimeout(timeout);
+      client.connect(address, port);
+      connectionListenerBroadcast.onConnection();
+      terminal.getFrontend().connect(client.getInputStream(), client.getOutputStream());
+    } catch (InvalidTelnetOptionException | IOException e) {
+      throw new ConnectionException(e, String.format("%s:%s", address, port));
+    }
   }
 
   public void disconnect() throws IOException {
@@ -62,8 +70,12 @@ public class TerminalClient {
     return new Dimension(terminal.getWidth(), terminal.getHeight());
   }
 
-  public void setExceptionListener(ExceptionListener listener) {
-    swingFrontendProxy.setExceptionListener(listener);
+  public void addConnectionListener(ConnectionListener listener) {
+    connectionListenerBroadcast.add(listener);
+  }
+ 
+  public void removeConnectionListener(ConnectionListener listener) {
+    connectionListenerBroadcast.remove(listener);
   }
 
   public void setSocketFactory(SocketFactory socketFactory) {
