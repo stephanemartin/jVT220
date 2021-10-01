@@ -532,6 +532,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   private final GraphicSetState m_graphicSetState;
   private final VT220Parser m_vt220parser;
   private final StateHolder m_savedState;
+  private boolean alarmSounded;
 
   // CONSTRUCTORS
 
@@ -583,6 +584,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   @Override
   public void handleControl( char controlChar ) throws IOException
   {
+
     int idx = getAbsoluteCursorIndex();
 
     switch ( controlChar )
@@ -610,6 +612,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
       case BELL:
       {
         // Bell...
+        alarmSounded = true;
         Toolkit.getDefaultToolkit().beep();
         break;
       }
@@ -2438,4 +2441,13 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   {
     write( createResponse( type, content ) );
   }
+
+  public void setAlarmSounded(boolean alarmSounded) {
+    this.alarmSounded = alarmSounded;
+  }
+
+  public boolean isAlarmSounded(){
+    return alarmSounded;
+  }
+
 }
