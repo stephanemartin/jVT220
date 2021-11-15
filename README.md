@@ -13,7 +13,7 @@ To use the emulator as Maven dependency include in `pom.xml`:
   <dependency>
       <groupId>com.github.blazemeter</groupId>
  	  <artifactId>jVT220</artifactId>
-  	  <version>1.3.2</version>
+  	  <version>jvt220-v1.3.2</version>
   </dependency>
 ```
 
