@@ -5,6 +5,20 @@ One of the most important changes in this forked version, is the addition of a [
 
 For more information about the original project please visit the documentation [here](https://github.com/jawi/jVT220/blob/master/README.md) 
 
+## Usage 
+
+To use the emulator as Maven dependency include in `pom.xml`:
+
+```xml
+  <dependency>
+      <groupId>com.github.blazemeter</groupId>
+ 	  <artifactId>jVT220</artifactId>
+  	  <version>jvt220-v1.3.2</version>
+  </dependency>
+```
+
+>Check latest version in[releases](https://github.com/Blazemeter/jVT220/releases).
+
 ## Author
 
 It is originally written by J.W. Janssen, <j.w.janssen@lxtreme.nl>.
