@@ -21,10 +21,12 @@
 package nl.lxtreme.jvt220.terminal;
 
 
-import java.awt.*;
-import java.io.*;
-import java.util.*;
-
+import java.awt.Dimension;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Writer;
+import java.util.BitSet;
 import nl.lxtreme.jvt220.terminal.ITerminal.ITextCell;
 
 

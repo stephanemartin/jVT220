@@ -21,10 +21,9 @@
 package nl.lxtreme.jvt220.terminal.swing;
 
 
-import java.awt.*;
-import java.util.concurrent.atomic.*;
-
-import nl.lxtreme.jvt220.terminal.*;
+import java.awt.Color;
+import java.util.concurrent.atomic.AtomicBoolean;
+import nl.lxtreme.jvt220.terminal.ITerminalColorScheme;
 
 
 /**

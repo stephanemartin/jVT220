@@ -21,7 +21,7 @@
 package nl.lxtreme.jvt220.terminal;
 
 
-import java.awt.*;
+import java.awt.Color;
 
 
 /**

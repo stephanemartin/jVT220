@@ -21,8 +21,8 @@
 package nl.lxtreme.jvt220.terminal.swing;
 
 
-import java.util.*;
-import java.util.concurrent.atomic.*;
+import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 /**

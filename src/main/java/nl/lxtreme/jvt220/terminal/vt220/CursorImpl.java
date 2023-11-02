@@ -21,7 +21,7 @@
 package nl.lxtreme.jvt220.terminal.vt220;
 
 
-import nl.lxtreme.jvt220.terminal.*;
+import nl.lxtreme.jvt220.terminal.ICursor;
 
 
 /**

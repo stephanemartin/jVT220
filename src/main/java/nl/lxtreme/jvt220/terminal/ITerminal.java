@@ -21,8 +21,10 @@
 package nl.lxtreme.jvt220.terminal;
 
 
-import java.awt.event.*;
-import java.io.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.io.Closeable;
+import java.io.IOException;
 
 
 /**
@@ -219,5 +221,4 @@ public interface ITerminal extends Closeable
    *           in case of I/O exceptions handling the input.
    */
   int write( CharSequence chars ) throws IOException;
-  
 }

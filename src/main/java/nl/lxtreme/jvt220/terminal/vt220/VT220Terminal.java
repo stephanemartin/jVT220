@@ -24,17 +24,14 @@ package nl.lxtreme.jvt220.terminal.vt220;
 import static java.awt.event.KeyEvent.*;
 import static nl.lxtreme.jvt220.terminal.vt220.VT220Parser.*;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-
-import nl.lxtreme.jvt220.terminal.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.InputEvent;
+import java.io.IOException;
+import nl.lxtreme.jvt220.terminal.ITerminalFrontend;
 import nl.lxtreme.jvt220.terminal.vt220.CharacterSets.CharacterSet;
 import nl.lxtreme.jvt220.terminal.vt220.CharacterSets.GraphicSet;
-import nl.lxtreme.jvt220.terminal.vt220.VT220Parser.CSIType;
-import nl.lxtreme.jvt220.terminal.vt220.VT220Parser.VT220ParserHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import nl.lxtreme.jvt220.terminal.vt220.VT220Parser.*;
 
 
 /**
@@ -43,7 +40,7 @@ import org.slf4j.LoggerFactory;
 public class VT220Terminal extends AbstractTerminal implements VT220ParserHandler
 {
   // INNER TYPES
-  private static final Logger LOG = LoggerFactory.getLogger(VT220Terminal.class);
+
   /**
    * Provides the current state of the graphic set.
    */
@@ -199,8 +196,9 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   static class StateHolder
   {
     // VARIABLES
-    
+
     private final CharacterSet[] m_graphicSetDesignations;
+
     private int m_cursorIndex;
     private short m_attrs;
     private boolean m_autoWrap;
@@ -532,7 +530,6 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   private final GraphicSetState m_graphicSetState;
   private final VT220Parser m_vt220parser;
   private final StateHolder m_savedState;
-  private boolean alarmSounded;
 
   // CONSTRUCTORS
 
@@ -584,7 +581,6 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   @Override
   public void handleControl( char controlChar ) throws IOException
   {
-
     int idx = getAbsoluteCursorIndex();
 
     switch ( controlChar )
@@ -612,7 +608,6 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
       case BELL:
       {
         // Bell...
-        alarmSounded = true;
         Toolkit.getDefaultToolkit().beep();
         break;
       }
@@ -707,7 +702,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
 
       default:
       {
-        LOG.warn( "Unknown control character: {}", ( int )controlChar );
+        log( "Unknown control character: " + ( int )controlChar );
         break;
       }
     }
@@ -1144,7 +1139,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.warn( "Unknown SET MODE: {}", arg );
+            log( "Unknown SET MODE: " + arg );
             break;
         }
         break;
@@ -1225,7 +1220,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.warn( "Unknown DEC SET PRIVATE MODE: {}", arg);
+            log( "Unknown DEC SET PRIVATE MODE: " + arg );
             break;
         }
         break;
@@ -1285,7 +1280,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.warn( "Unknown RESET MODE: {}", arg );
+            log( "Unknown RESET MODE: " + arg );
             break;
         }
         break;
@@ -1362,7 +1357,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.warn( "Unknown DEC RESET PRIVATE MODE: {}", arg );
+            log( "Unknown DEC RESET PRIVATE MODE: " + arg );
             break;
         }
         break;
@@ -1422,7 +1417,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.warn( "Unknown/unhandled DECSDR argument: {}", arg );
+            log( "Unknown/unhandled DECSDR argument: " + arg );
             break;
         }
         break;
@@ -1585,7 +1580,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
         break;
 
       default:
-        LOG.warn( "Unhandled CSI: {}", type );
+        log( "Unhandled CSI: " + type );
         break;
     }
     // Update the cursor position...
@@ -1716,7 +1711,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.warn( "Unhandled argument for ESC sp: {}", arg );
+            log( "Unhandled argument for ESC sp: " + arg );
             break;
         }
         break;
@@ -1742,7 +1737,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             break;
 
           default:
-            LOG.warn( "Unhandled argument for ESC sp: {}", arg );
+            log( "Unhandled argument for ESC sp: " + arg );
             break;
         }
         break;
@@ -1772,7 +1767,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
 
       default:
       {
-        LOG.warn( "Unhandled ESC designator: {}", designator );
+        log( "Unhandled ESC designator: " + designator );
         break;
       }
     }
@@ -2191,7 +2186,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
     }
     else if ( parameter > 0 )
     {
-      LOG.warn( "Unhandled attribute: {}", parameter );
+      log( "Unhandled attribute: " + parameter );
     }
   }
 
@@ -2310,7 +2305,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   {
     if ( arg != 0 )
     {
-      LOG.warn( "Unknown DA: {}", arg );
+      log( "Unknown DA: " + arg );
     }
     else
     {
@@ -2441,13 +2436,4 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   {
     write( createResponse( type, content ) );
   }
-
-  public void setAlarmSounded(boolean alarmSounded) {
-    this.alarmSounded = alarmSounded;
-  }
-
-  public boolean isAlarmSounded(){
-    return alarmSounded;
-  }
-
 }

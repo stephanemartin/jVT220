@@ -21,8 +21,9 @@
 package nl.lxtreme.jvt220.terminal.vt220;
 
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Stack;
 
 
 /**

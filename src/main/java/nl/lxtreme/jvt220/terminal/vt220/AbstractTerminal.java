@@ -21,10 +21,16 @@
 package nl.lxtreme.jvt220.terminal.vt220;
 
 
-import java.io.*;
-import java.util.*;
-
-import nl.lxtreme.jvt220.terminal.*;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Arrays;
+import java.util.BitSet;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import nl.lxtreme.jvt220.terminal.ICursor;
+import nl.lxtreme.jvt220.terminal.ITabulator;
+import nl.lxtreme.jvt220.terminal.ITerminal;
+import nl.lxtreme.jvt220.terminal.ITerminalFrontend;
 
 
 /**
@@ -1048,7 +1054,23 @@ public abstract class AbstractTerminal implements ITerminal
   {
     return m_wrapped;
   }
-  
+
+  /**
+   * Logs the given text verbatimely at loglevel 0 or higher.
+   * 
+   * @param text
+   *          the text to log, cannot be <code>null</code>.
+   */
+  protected final void log( String text )
+  {
+    if ( m_logLevel < 0 )
+    {
+      return;
+    }
+
+    System.out.printf( "LOG> %s%n", text );
+  }
+
   /**
    * Removes the character at the absolute index.
    * 
@@ -1302,5 +1324,4 @@ public abstract class AbstractTerminal implements ITerminal
       m_frontend.terminalSizeChanged( width, height );
     }
   }
-  
 }

@@ -20,10 +20,10 @@
  */
 package nl.lxtreme.jvt220.terminal.vt220;
 
-import static nl.lxtreme.jvt220.terminal.vt220.CharacterSets.*;
+import static nl.lxtreme.jvt220.terminal.vt220.CharacterSets.ASCII_NAMES;
 
-import java.awt.*;
-import java.util.concurrent.atomic.*;
+import java.awt.Toolkit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**
