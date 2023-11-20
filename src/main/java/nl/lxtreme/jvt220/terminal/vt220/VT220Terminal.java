@@ -493,6 +493,90 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
             return "\b";
           }
           return createResponse( ResponseType.CSI, "24~" );
+        case VK_F13:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "25~" );
+        case VK_F14:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "26~" );
+        case VK_F15:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "28~" );
+        case VK_F16:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "29~" );
+        case VK_F17:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "31~" );
+        case VK_F18:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "32~" );
+        case VK_F19:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "33~" );
+        case VK_F20:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "34~" );
+        case VK_F21:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "35~" );
+        case VK_F22:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "36~" );
+        case VK_F23:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "37~" );
+        case VK_F24:
+          if ( isVT52mode() )
+          {
+            // Not mapped...
+            return null;
+          }
+          return createResponse( ResponseType.CSI, "38~" );
 
         default:
           return null;

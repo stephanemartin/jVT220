@@ -118,6 +118,8 @@ public interface ITerminal extends Closeable
      */
     boolean isHidden();
 
+
+    short getAttributes();
   }
 
   // METHODS
