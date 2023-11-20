@@ -110,7 +110,7 @@ public class PlainTerminal extends AbstractTerminal
 
         case '\007':
           // Bell
-          Toolkit.getDefaultToolkit().beep();
+         getFrontend().beep();
           break;
 
         case '\012':

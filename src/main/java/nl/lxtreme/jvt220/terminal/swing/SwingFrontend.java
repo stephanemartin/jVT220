@@ -524,6 +524,11 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
     }
   }
 
+  @Override
+  public void beep() {
+    Toolkit.getDefaultToolkit().beep();
+  }
+
   /**
    * Writes the given array of characters directly to the terminal, similar as
    * writing to the standard output.

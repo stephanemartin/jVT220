@@ -692,7 +692,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
       case BELL:
       {
         // Bell...
-        Toolkit.getDefaultToolkit().beep();
+        getFrontend().beep();
         break;
       }
 

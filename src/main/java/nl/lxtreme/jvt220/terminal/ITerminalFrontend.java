@@ -186,4 +186,6 @@ public interface ITerminalFrontend
    *           in case of I/O problems writing to the terminal.
    */
   void writeCharacters( CharSequence chars ) throws IOException;
+
+  void beep();
 }
