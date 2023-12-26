@@ -185,7 +185,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
   /**
    * Denotes the various types of responses we can sent from this terminal.
    */
-  static enum ResponseType
+  public enum ResponseType
   {
     ESC, CSI, OSC, SS3;
   }
@@ -1939,7 +1939,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
    *         otherwise.
    * @see #set132ColumnMode(boolean)
    */
-  protected final boolean is132ColumnMode()
+  public boolean is132ColumnMode()
   {
     return m_options.get( OPTION_132COLS );
   }
@@ -1951,7 +1951,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
    *         <code>false</code> to send responses in 7-bit mode.
    * @see #set8bitMode(boolean)
    */
-  protected final boolean is8bitMode()
+  public final boolean is8bitMode()
   {
     return m_options.get( OPTION_8BIT );
   }
@@ -1964,7 +1964,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
    *         <code>false</code> if normal cursor keys are to be used.
    * @see #setApplicationCursorKeys(boolean)
    */
-  protected final boolean isApplicationCursorKeys()
+  public final boolean isApplicationCursorKeys()
   {
     return m_options.get( OPTION_APPLICATION_CURSOR_KEYS );
   }
@@ -2012,7 +2012,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
    * @return <code>true</code> if the terminal is currently emulating a VT52,
    *         <code>false</code> if it is emulating a VT100/VT220.
    */
-  protected final boolean isVT52mode()
+  public final boolean isVT52mode()
   {
     return m_vt220parser.isVT52mode();
   }
@@ -2112,7 +2112,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
    *          the actual content.
    * @return the 7- or 8-bit response, never <code>null</code>.
    */
-  private String createResponse( ResponseType type, String content )
+  public String createResponse( ResponseType type, String content )
   {
     StringBuilder sb = new StringBuilder();
     switch ( type )
