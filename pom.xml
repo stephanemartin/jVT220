@@ -43,7 +43,7 @@
     <repository>
       <id>github</id>
       <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/stephanemartin/jVT220</url>
+      <url>https://maven.pkg.github.com/stephanemartin/maven</url>
     </repository>
   </distributionManagement>
 
