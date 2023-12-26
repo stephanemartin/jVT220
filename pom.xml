@@ -36,7 +36,7 @@
   <scm>
     <connection>scm:git:git@github.com:stephanemartin/jVT220.git</connection>
     <developerConnection>scm:git:git@github.com:stephanemartin/jVT220.git</developerConnection>
-    <url>https://github.com/stephanemartin/dm3270</url>
+    <url>https://github.com/stephanemartin/jVT220</url>
   </scm>
 
   <distributionManagement>
