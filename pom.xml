@@ -10,7 +10,7 @@
 
   <name>${project.artifactId}</name>
   <description>This is a fork of https://github.com/jawi/jVT220/</description>
-  <url>https://github.com/blazemeter/jvt220</url>
+  <url>https://github.com/stephanemartin/jvt220</url>
 
   <licenses>
     <license>
