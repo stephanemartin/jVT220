@@ -17,13 +17,13 @@ To use the emulator as Maven dependency include in `pom.xml`:
   </dependency>
 ```
 
->Check latest version in[releases](https://github.com/Blazemeter/jVT220/releases).
+>Check latest version in[releases](https://github.com/stephanemartin/jVT220/releases).
 
 ## Author
 
 It is originally written by J.W. Janssen, <j.w.janssen@lxtreme.nl>.
 
-This version is currently maintained by BlazemeterLabs team. 
+This version is currently maintained by tricentis. 
 
 ## License
 

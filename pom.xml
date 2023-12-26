@@ -21,10 +21,10 @@
   
   <developers>
     <developer>
-      <name>Blazemeter</name>
-      <email>ops@blazemeter.com</email>
-      <organization>Blazemeter</organization>
-      <organizationUrl>https://blazemeter.com/</organizationUrl>
+      <name>stephane martin</name>
+      <email>s.martin@tricentis.com</email>
+      <organization>Tricentis</organization>
+      <organizationUrl>https://www.tricentis.com/</organizationUrl>
     </developer>
   </developers>
   
@@ -34,18 +34,19 @@
   </properties>
 
   <scm>
-    <connection>scm:git:git@gitlab.abstracta.us:BZ-plugins/jVT220.git</connection>
-    <developerConnection>scm:git:git@gitlab.abstracta.us:BZ-plugins/jVT220.git
-    </developerConnection>
-    <url>http://gitlab.abstracta.us/BZ-plugins/jVT220</url>
+    <connection>scm:git:git@github.com:stephanemartin/jVT220.git</connection>
+    <developerConnection>scm:git:git@github.com:stephanemartin/jVT220.git</developerConnection>
+    <url>https://github.com/stephanemartin/dm3270</url>
   </scm>
-  
-   <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/stephanemartin/jVT220</url>
+    </repository>
   </distributionManagement>
+
 
   <dependencies>
     <dependency>
