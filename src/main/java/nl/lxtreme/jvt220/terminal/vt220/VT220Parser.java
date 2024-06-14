@@ -959,12 +959,14 @@ public final class VT220Parser
                 break;
 
               case '=':
-                // Enter alternate keypad mode TODO
+                // Enter alternate keypad mode
+                handler.handleESC( '=');
                 escSequenceFound();
                 break;
 
               case '>':
-                // Leave alternate keypad mode TODO
+                // Leave alternate keypad mode
+                handler.handleESC( '>');
                 escSequenceFound();
                 break;
 
