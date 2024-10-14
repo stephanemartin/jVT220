@@ -13,7 +13,7 @@ To use the emulator as Maven dependency include in `pom.xml`:
   <dependency>
       <groupId>com.github.stephanemartin</groupId>
  	  <artifactId>jVT220</artifactId>
-  	  <version>jvt220-v1.3.3-SNAPSHOT</version>
+  	  <version>jvt220-v1.3.4-SNAPSHOT</version>
   </dependency>
 ```
 
