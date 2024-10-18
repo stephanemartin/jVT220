@@ -82,4 +82,15 @@ public interface ICursor extends Cloneable
    *          to hide the cursor.
    */
   void setVisible( boolean visible );
+
+  /**
+   * Give information if cursor has change since last reset.
+   * @return
+   */
+  boolean hasChanged();
+
+  /**
+   * Reset the flag has changed of cursor.
+   */
+  void resetHasChanged();
 }

@@ -35,7 +35,7 @@ public class CursorImpl implements ICursor
   private boolean m_visible;
   private int m_x;
   private int m_y;
-
+  private volatile boolean hasChanged = false;
   // CONSTRUCTORS
 
   /**
@@ -127,7 +127,18 @@ public class CursorImpl implements ICursor
   @Override
   public void setVisible( final boolean visible )
   {
+    hasChanged = true;
     m_visible = visible;
+  }
+
+  @Override
+  public boolean hasChanged() {
+    return hasChanged;
+  }
+
+  @Override
+  public void resetHasChanged() {
+    hasChanged = false;
   }
 
   /**
@@ -135,7 +146,9 @@ public class CursorImpl implements ICursor
    */
   final void setPosition( final int x, final int y )
   {
+    hasChanged = true;
     m_x = x;
     m_y = y;
   }
+
 }
