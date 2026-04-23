@@ -11,9 +11,9 @@ To use the emulator as Maven dependency include in `pom.xml`:
 
 ```xml
   <dependency>
-      <groupId>com.github.stephanemartin</groupId>
+      <groupId>io.github.stephanemartin</groupId>
  	  <artifactId>jVT220</artifactId>
-  	  <version>1.3.4</version>
+  	  <version>1.3.5</version>
   </dependency>
 ```
 
