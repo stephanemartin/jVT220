@@ -47,10 +47,10 @@ public interface ITerminal extends Closeable
      * be send from this terminal.
      * 
      * @param aKeyCode
-     *          the key code, as defined in {@link KeyEvent} (<tt>VK_*</tt>);
+     *          the key code, as defined in {@link KeyEvent} (<code>VK_*</code>);
      * @param aModifiers
      *          the bit mask with key modifiers, as defined in
-     *          {@link InputEvent} (<tt>*_MASK</tt>).
+     *          {@link InputEvent} (<code>*_MASK</code>).
      * @return a string that maps the given key code and modifiers in a sequence
      *         that is native to this terminal, or <code>null</code> if no
      *         mapping could be made.
@@ -66,7 +66,7 @@ public interface ITerminal extends Closeable
     // METHODS
 
     /**
-     * @return the background color index, >= 0 && < 32. A value of 0 means the
+     * @return the background color index, &gt;= 0 &amp;&amp; &lt; 32. A value of 0 means the
      *         default background color.
      */
     int getBackground();
@@ -77,7 +77,7 @@ public interface ITerminal extends Closeable
     char getChar();
 
     /**
-     * @return the foreground color index, >= 0 && < 32. A value of 0 means the
+     * @return the foreground color index, &gt;= 0 &amp;&amp; &lt; 32. A value of 0 means the
      *         default background color.
      */
     int getForeground();

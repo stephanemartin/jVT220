@@ -433,7 +433,7 @@ public final class CharacterSets
      * set.
      * 
      * @param index
-     *          the index of the character set, >= 0 && < 128.
+     *          the index of the character set, &gt;= 0 &amp;&amp; &lt; 128.
      * @return a mapped character, or -1 if no mapping could be made and the
      *         ASCII value should be used.
      */

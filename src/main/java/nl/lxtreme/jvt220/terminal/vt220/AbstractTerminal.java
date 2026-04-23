@@ -238,9 +238,9 @@ public abstract class AbstractTerminal implements ITerminal
    * Creates a new {@link AbstractTerminal} instance.
    * 
    * @param columns
-   *          the initial number of columns in this terminal, > 0;
+   *          the initial number of columns in this terminal, &gt; 0;
    * @param lines
-   *          the initial number of lines in this terminal, > 0.
+   *          the initial number of lines in this terminal, &gt; 0.
    */
   protected AbstractTerminal( final int columns, final int lines )
   {
@@ -330,7 +330,7 @@ public abstract class AbstractTerminal implements ITerminal
   /**
    * Returns the first line that can be scrolled, by default line 0.
    * 
-   * @return the index of the first scroll line, >= 0.
+   * @return the index of the first scroll line, &gt;= 0.
    */
   public final int getFirstScrollLine()
   {
@@ -374,7 +374,7 @@ public abstract class AbstractTerminal implements ITerminal
    * Returns the last line that can be scrolled, by default the screen height
    * minus 1.
    * 
-   * @return the index of the last scroll line, >= 0 && < {@link #getHeight()} .
+   * @return the index of the last scroll line, &gt;= 0 &amp;&amp; &lt; {@link #getHeight()} .
    */
   public final int getLastScrollLine()
   {
@@ -509,12 +509,12 @@ public abstract class AbstractTerminal implements ITerminal
    * Moves the cursor relatively to the given X,Y position.
    * 
    * @param x
-   *          the relative X-position to move. If > 0, then move to the right;
-   *          if 0, then the X-position is unchanged; if < 0, then move to the
+   *          the relative X-position to move. If &gt; 0, then move to the right;
+   *          if 0, then the X-position is unchanged; if &lt; 0, then move to the
    *          left;
    * @param y
-   *          the relative Y-position to move. If > 0, then move to the bottom;
-   *          if 0, then the Y-position is unchanged; if < 0, then move to the
+   *          the relative Y-position to move. If &gt; 0, then move to the bottom;
+   *          if 0, then the Y-position is unchanged; if &lt; 0, then move to the
    *          top.
    */
   public void moveCursorRelative( final int x, final int y )
@@ -568,7 +568,7 @@ public abstract class AbstractTerminal implements ITerminal
    * lost.
    * 
    * @param lines
-   *          the number of lines to scroll down, > 0.
+   *          the number of lines to scroll down, &gt; 0.
    * @see #setScrollRegion(int, int)
    */
   public void scrollDown( final int lines )
@@ -582,7 +582,7 @@ public abstract class AbstractTerminal implements ITerminal
    * lost.
    * 
    * @param lines
-   *          the number of lines to scroll up, > 0.
+   *          the number of lines to scroll up, &gt; 0.
    * @see #setScrollRegion(int, int)
    */
   public void scrollUp( final int lines )
@@ -618,10 +618,10 @@ public abstract class AbstractTerminal implements ITerminal
    * Sets the dimensions of this terminal to the given width and height.
    * 
    * @param newWidth
-   *          the new width of this terminal, in columns. If <= 0, then the
+   *          the new width of this terminal, in columns. If &lt;= 0, then the
    *          current width will be used;
    * @param newHeight
-   *          the new height of this terminal, in lines. If <= 0, then the
+   *          the new height of this terminal, in lines. If &lt;= 0, then the
    *          current height will be used.
    */
   public void setDimensions( int newWidth, int newHeight )
@@ -719,9 +719,9 @@ public abstract class AbstractTerminal implements ITerminal
    * region.
    * 
    * @param topIndex
-   *          the top line that will be scrolled, >= 0;
+   *          the top line that will be scrolled, &gt;= 0;
    * @param bottomIndex
-   *          the bottom line that will be scrolled, >= aTopIndex.
+   *          the bottom line that will be scrolled, &gt;= aTopIndex.
    */
   public void setScrollRegion( final int topIndex, final int bottomIndex )
   {
@@ -911,7 +911,7 @@ public abstract class AbstractTerminal implements ITerminal
    * @param absoluteIndex
    *          the absolute index to delete the character at;
    * @param count
-   *          the number of times to insert the given character, > 0.
+   *          the number of times to insert the given character, &gt; 0.
    * @return the next index.
    */
   protected final int deleteChars( final int absoluteIndex, final int count )
@@ -936,14 +936,13 @@ public abstract class AbstractTerminal implements ITerminal
   /**
    * Provides the actual implementation for {@link #read(CharSequence)}.
    * 
-   * @see {@link #read(CharSequence)}
    */
   protected abstract int doReadInput( CharSequence chars ) throws IOException;
 
   /**
    * Returns the absolute index according to the current cursor position.
    * 
-   * @return an absolute index of the cursor position, >= 0.
+   * @return an absolute index of the cursor position, &gt;= 0.
    */
   protected final int getAbsoluteCursorIndex()
   {
@@ -957,7 +956,7 @@ public abstract class AbstractTerminal implements ITerminal
    *          the X-position;
    * @param y
    *          the Y-position.
-   * @return an absolute index of the cursor position, >= 0.
+   * @return an absolute index of the cursor position, &gt;= 0.
    */
   protected final int getAbsoluteIndex( final int x, final int y )
   {
@@ -1001,7 +1000,7 @@ public abstract class AbstractTerminal implements ITerminal
   }
 
   /**
-   * @return the first absolute index of this screen, >= 0.
+   * @return the first absolute index of this screen, &gt;= 0.
    */
   protected final int getFirstAbsoluteIndex()
   {
@@ -1009,7 +1008,7 @@ public abstract class AbstractTerminal implements ITerminal
   }
 
   /**
-   * @return the last absolute index of this screen, >= 0.
+   * @return the last absolute index of this screen, &gt;= 0.
    */
   protected final int getLastAbsoluteIndex()
   {
@@ -1026,7 +1025,7 @@ public abstract class AbstractTerminal implements ITerminal
    * @param ch
    *          the character to insert;
    * @param count
-   *          the number of times to insert the given character, > 0.
+   *          the number of times to insert the given character, &gt; 0.
    * @return the next index.
    */
   protected final int insertChars( final int absoluteIndex, final char ch, final int count )
@@ -1075,7 +1074,7 @@ public abstract class AbstractTerminal implements ITerminal
    * Removes the character at the absolute index.
    * 
    * @param absoluteIndex
-   *          the index on which to remove the character, >= 0;
+   *          the index on which to remove the character, &gt;= 0;
    * @param keepProtectedCells
    *          <code>true</code> to honor the 'protected' bit of text cells and
    *          leave the text cell unchanged, <code>false</code> to ignore this
@@ -1123,7 +1122,7 @@ public abstract class AbstractTerminal implements ITerminal
    * @param lastScrollLine
    *          the last line of the scroll region;
    * @param lines
-   *          the number of lines to scroll, > 0.
+   *          the number of lines to scroll, &gt; 0.
    */
   protected void scrollDown( final int firstScrollLine, final int lastScrollLine, final int lines )
   {
@@ -1171,7 +1170,7 @@ public abstract class AbstractTerminal implements ITerminal
    * @param lastScrollLine
    *          the last line of the scroll region;
    * @param lines
-   *          the number of lines to scroll, > 0.
+   *          the number of lines to scroll, &gt; 0.
    */
   protected void scrollUp( final int firstScrollLine, final int lastScrollLine, final int lines )
   {
@@ -1229,12 +1228,9 @@ public abstract class AbstractTerminal implements ITerminal
    * beyond the last index is written.
    * 
    * @param absoluteIndex
-   *          the index on which to write the given char, >= 0;
+   *          the index on which to write the given char, &gt;= 0;
    * @param ch
    *          the character to write;
-   * @param aAttributes
-   *          the attributes to use to write the character.
-   * @return the absolute index after which the character was written.
    */
   protected final int writeChar( final int absoluteIndex, final char ch )
   {
@@ -1283,9 +1279,9 @@ public abstract class AbstractTerminal implements ITerminal
    * Sets the dimensions of this terminal to the given width and height.
    * 
    * @param width
-   *          the new width in columns, > 0;
+   *          the new width in columns, &gt; 0;
    * @param height
-   *          the new height in lines, > 0.
+   *          the new height in lines, &gt; 0.
    */
   private void internalSetDimensions( final int width, final int height )
   {

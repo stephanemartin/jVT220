@@ -47,14 +47,14 @@ public interface ICursor extends Cloneable
   /**
    * Returns the X-position of the cursor.
    * 
-   * @return a X-position, >= 0.
+   * @return a X-position, &gt;= 0.
    */
   int getX();
 
   /**
    * Returns the Y-position of the cursor.
    * 
-   * @return a Y-position, >= 0.
+   * @return a Y-position, &gt;= 0.
    */
   int getY();
 
