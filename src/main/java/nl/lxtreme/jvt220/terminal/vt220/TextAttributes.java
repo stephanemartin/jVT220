@@ -182,7 +182,7 @@ class TextAttributes
    * Sets the background color.
    * 
    * @param index
-   *          the index of the background color, >= 0 && < 32.
+   *          the index of the background color, &gt;= 0 &amp;&amp; &lt; 32.
    */
   public void setBackground( int index )
   {
@@ -205,7 +205,7 @@ class TextAttributes
    * Sets the foreground color.
    * 
    * @param index
-   *          the index of the foreground color, >= 0 && < 32.
+   *          the index of the foreground color, &gt;= 0 &amp;&amp; &lt; 32.
    */
   public void setForeground( int index )
   {

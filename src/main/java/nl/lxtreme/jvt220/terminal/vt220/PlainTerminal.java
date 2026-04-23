@@ -41,9 +41,9 @@ public class PlainTerminal extends AbstractTerminal
    * Creates a new {@link PlainTerminal} instance.
    * 
    * @param aColumns
-   *          the initial number of columns in this terminal, > 0;
+   *          the initial number of columns in this terminal, &gt; 0;
    * @param aLines
-   *          the initial number of lines in this terminal, > 0.
+   *          the initial number of lines in this terminal, &gt; 0.
    */
   public PlainTerminal( final int aColumns, final int aLines )
   {

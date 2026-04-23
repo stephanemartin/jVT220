@@ -55,7 +55,7 @@ public final class VT220Parser
      * Called when a plain (non C0/C1) character is found.
      * 
      * @param ch
-     *          the found character, >= 32.
+     *          the found character, &gt;= 32.
      * @throws IOException
      *           in case of I/O problems handling the given character.
      */
@@ -65,7 +65,7 @@ public final class VT220Parser
      * Called when a C0 control character is found.
      * 
      * @param controlChar
-     *          the C0 control character, >= 0 && < 32.
+     *          the C0 control character, &gt;= 0 &amp;&amp; &lt; 32.
      * @throws IOException
      *           in case of I/O problems handling the given control character.
      */
@@ -1329,7 +1329,7 @@ public final class VT220Parser
 
   /**
    * @param logLevel
-   *          the log level to set, >= 0.
+   *          the log level to set, &gt;= 0.
    */
   public void setLogLevel( int logLevel )
   {
@@ -1363,7 +1363,7 @@ public final class VT220Parser
    * position.
    * 
    * @param count
-   *          the number of characters to eat, > 0.
+   *          the number of characters to eat, &gt; 0.
    */
   private void eat( int count )
   {
@@ -1417,7 +1417,7 @@ public final class VT220Parser
    * 
    * @param defaultValue
    *          the default (minimal) value of the parameter.
-   * @return an integer value, >= the given default value.
+   * @return an integer value, &gt;= the given default value.
    */
   private int getIntegerParameter( final int defaultValue )
   {

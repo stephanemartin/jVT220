@@ -552,9 +552,9 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
    * Recreates the terminal image.
    * 
    * @param columns
-   *          the new number of columns, > 0;
+   *          the new number of columns, &gt; 0;
    * @param lines
-   *          the new number of lines, > 0.
+   *          the new number of lines, &gt; 0.
    */
   void recreateTerminalImage( int columns, int lines, boolean forceRepaint )
   {
@@ -871,7 +871,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
   /**
    * Writes a given number of characters to the terminal.
    * 
-   * @param chars
+   * @param ch
    *          the characters to write, cannot be <code>null</code>.
    * @throws IOException
    *           in case of I/O problems responding.
@@ -943,9 +943,9 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
    * Calculates the size (in pixels) of the back buffer image.
    * 
    * @param columns
-   *          the number of columns, > 0;
+   *          the number of columns, &gt; 0;
    * @param lines
-   *          the number of lines, > 0.
+   *          the number of lines, &gt; 0.
    * @return a dimension with the image width and height in pixels.
    */
   private Dimension calculateSizeInPixels( int columns, int lines )
@@ -985,7 +985,7 @@ public class SwingFrontend extends JComponent implements ITerminalFrontend
    * Converts a given color index to a concrete color value.
    * 
    * @param index
-   *          the numeric color index, >= 0;
+   *          the numeric color index, &gt;= 0;
    * @param defaultColor
    *          the default color to use, cannot be <code>null</code>.
    * @return a color value, never <code>null</code>.

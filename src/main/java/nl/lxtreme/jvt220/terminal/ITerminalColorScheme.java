@@ -44,7 +44,7 @@ public interface ITerminalColorScheme
    * 8 different foreground colors.
    * 
    * @param aIndex
-   *          the index of the color to return, >= 0 && < 8.
+   *          the index of the color to return, &gt;= 0 &amp;&amp; &lt; 8.
    * @return a foreground color, never <code>null</code>.
    */
   Color getColorByIndex( int aIndex );

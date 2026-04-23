@@ -128,9 +128,9 @@ public interface ITerminalFrontend
    * Sets the terminal dimensions in pixels.
    * 
    * @param width
-   *          the new width in pixels, > 0;
+   *          the new width in pixels, &gt; 0;
    * @param height
-   *          the new height in pixels, > 0.
+   *          the new height in pixels, &gt; 0.
    */
   void setSize( int width, int height );
 
@@ -159,9 +159,9 @@ public interface ITerminalFrontend
    * changed.
    * 
    * @param columns
-   *          the new number of columns, > 0;
+   *          the new number of columns, &gt; 0;
    * @param alines
-   *          the new number of lines, > 0.
+   *          the new number of lines, &gt; 0.
    */
   void terminalSizeChanged( int columns, int alines );
 

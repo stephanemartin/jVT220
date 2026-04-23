@@ -138,7 +138,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
      * Overrides the GL graphic set for the next written character.
      * 
      * @param index
-     *          the graphic set index, >= 0 && < 3.
+     *          the graphic set index, &gt;= 0 &amp;&amp; &lt; 3.
      */
     public void overrideGL( int index )
     {
@@ -163,7 +163,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
      * Selects the graphic set for GL.
      * 
      * @param index
-     *          the graphic set index, >= 0 && <= 3.
+     *          the graphic set index, &gt;= 0 &amp;&amp; &lt;= 3.
      */
     public void setGL( int index )
     {
@@ -174,7 +174,7 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
      * Selects the graphic set for GR.
      * 
      * @param index
-     *          the graphic set index, >= 0 && <= 3.
+     *          the graphic set index, &gt;= 0 &amp;&amp; &lt;= 3.
      */
     public void setGR( int index )
     {
@@ -621,9 +621,9 @@ public class VT220Terminal extends AbstractTerminal implements VT220ParserHandle
    * Creates a new {@link VT220Terminal} instance.
    * 
    * @param columns
-   *          the initial number of columns in this terminal, > 0;
+   *          the initial number of columns in this terminal, &gt; 0;
    * @param lines
-   *          the initial number of lines in this terminal, > 0.
+   *          the initial number of lines in this terminal, &gt; 0.
    */
   public VT220Terminal( final int columns, final int lines )
   {
